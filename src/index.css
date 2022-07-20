@@ -1,5 +1,6 @@
 body {
   background-color: #fafafa;
+  padding-bottom: 30px;
 }
 header {
   background-color: #6d28d9;
@@ -84,9 +85,9 @@ form input[type="submit"] {
   display: block;
   width: 100%;
   margin-top: 2rem;
+  cursor: pointer;
 }
 form input[type="submit"]:hover {
-  cursor: pointer;
   background-color: #6d28d9;
 }
 

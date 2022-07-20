@@ -25,11 +25,11 @@ const LetrasProvider = ({ children }) => {
       setInformacion({ artista: artista, cancion: cancion, letra: lyrics });
     } catch (error) {
       console.error(error);
-      setInformacion({ artista: "", cancion: "", letra: "" });
       setAlerta("Cancion no encontrada");
+      setInformacion({ artista: "", cancion: "", letra: "" });
       setTimeout(() => {
         setAlerta("")
-      }, 2000);
+      }, 3000);
     }
     setCargando(false);
   };
@@ -40,6 +40,7 @@ const LetrasProvider = ({ children }) => {
         setAlerta,
         busquedaLetra,
         informacion,
+        setInformacion,
         cargando,
       }}
     >

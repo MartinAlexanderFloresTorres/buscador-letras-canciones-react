@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import useLetras from "../hooks/useLetras";
 
 const Formulario = () => {
-  const { setAlerta, busquedaLetra, cargando } = useLetras();
+  const { alerta, setAlerta, setInformacion, busquedaLetra, cargando } =
+    useLetras();
   const [busquedad, setBusqueda] = useState({
     artista: "",
     cancion: "",
@@ -12,15 +13,30 @@ const Formulario = () => {
     e.preventDefault();
     if (Object.values(busquedad).includes("")) {
       setAlerta("Coloca nombre de artista y canción");
-      setTimeout(() => {
-        setAlerta("")
-      }, 2000);
+      setInformacion({ artista: "", cancion: "", letra: "" });
+      if (!alerta) {
+        setTimeout(() => {
+          setAlerta("");
+        }, 3000);
+      }
       return;
     }
+    const boton = document.querySelector("#buscar");
+    boton.disabled = true;
+    boton.style.opacity = "0.5";
+    boton.style.cursor = "no-drop";
     // buscar
     busquedaLetra(busquedad);
   };
 
+  useEffect(() => {
+    if (!cargando) {
+      const boton = document.querySelector("#buscar");
+      boton.disabled = false;
+      boton.style.opacity = "1";
+      boton.style.cursor = "pointer";
+    }
+  }, [cargando]);
   return (
     <form onSubmit={handleSubmit}>
       <legend>Busca por Artistas y Canción</legend>
@@ -60,6 +76,7 @@ const Formulario = () => {
         </div>
         <input
           type="submit"
+          id="buscar"
           value={`${!cargando ? "Buscar" : "Buscando..."}`}
         />
       </div>
